@@ -1,0 +1,20 @@
+\documentclass[letterpaper,11pt]{article}
+\usepackage[margin=2cm]{geometry}
+
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[colorlinks]{hyperref}
+
+\title{\textbf{18794::Pattern Recognition Theory\\Prof. Marios Savvides}}
+\author{HMW-Alexander}
+
+\begin{document}
+
+Contents:
+\begin{enumerate}
+	\item 
+\end{enumerate}	
+	
+\end{document}
