@@ -1,13 +1,16 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta http-equiv="Content-Style-Type" content="text/css" />
-  <meta name="generator" content="pandoc" />
-  <meta name="author" content="HMW-Alexander" />
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="HMW-Alexander">
   <title>18794 Pattern Recognition Theory Prof. Marios Savvides</title>
   <style type="text/css">code{white-space: pre;}</style>
   <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
   <script type="text/x-mathjax-config">
   	MathJax.Hub.Config({
   		TeX: {
@@ -17,12 +20,12 @@
   </script>
 </head>
 <body>
-<div id="header">
+<header>
 <h1 class="title"><strong>18794 Pattern Recognition Theory<br />
 Prof. Marios Savvides</strong></h1>
 <h2 class="author">HMW-Alexander</h2>
-</div>
-<div id="TOC">
+</header>
+<nav id="TOC">
 <ul>
 <li><a href="#introduction"><span class="toc-section-number">1</span> Introduction</a></li>
 <li><a href="#decision-theory"><span class="toc-section-number">2</span> Decision Theory</a><ul>
@@ -33,10 +36,21 @@ Prof. Marios Savvides</strong></h1>
 <li><a href="#likelihood-as-gaussian-distribution"><span class="toc-section-number">2.4.1</span> Likelihood as Gaussian distribution</a></li>
 </ul></li>
 </ul></li>
+<li><a href="#parametric-non-parametric-density-estimation"><span class="toc-section-number">3</span> Parametric &amp; Non-Parametric Density Estimation</a><ul>
+<li><a href="#ml-estimation-mle"><span class="toc-section-number">3.1</span> ML Estimation (MLE)</a><ul>
+<li><a href="#e.g.-univariate-gaussian"><span class="toc-section-number">3.1.1</span> E.g. Univariate Gaussian</a></li>
+<li><a href="#e.g.-multivariate-gaussian"><span class="toc-section-number">3.1.2</span> E.g. Multivariate Gaussian</a></li>
+</ul></li>
+<li><a href="#bayesian-estimation-be"><span class="toc-section-number">3.2</span> Bayesian Estimation (BE)</a><ul>
+<li><a href="#e.g.-univariate-gaussian-1"><span class="toc-section-number">3.2.1</span> E.g. Univariate Gaussian</a></li>
+<li><a href="#e.g.-multivariate-gaussian-1"><span class="toc-section-number">3.2.2</span> E.g. Multivariate Gaussian</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#principle-component-analysis-pca"><span class="toc-section-number">4</span> Principle Component Analysis (PCA)</a></li>
 </ul>
-</div>
-<hr />
+</nav>
 <h1 id="introduction"><span class="header-section-number">1</span> Introduction</h1>
+<p><a href="./document.html"><strong>Back to Top</strong></a></p>
 <hr />
 <h1 id="decision-theory"><span class="header-section-number">2</span> Decision Theory</h1>
 <h2 id="terms"><span class="header-section-number">2.1</span> Terms</h2>
@@ -80,31 +94,178 @@ P(w_1)f(x|w_1) - P(w_2)f(x|w_2) &lt;0 &amp; \Rightarrow &amp; w_2 \\
 <h2 id="likelihood-ratio"><span class="header-section-number">2.4</span> Likelihood Ratio</h2>
 <ul>
 <li><p><strong>Likelihood ratio</strong>: <span class="math inline">\(l(x)=\frac{f(x|w_1)}{f(x|w_2)}\)</span></p></li>
-<li><p><strong>Log likelihood ratio</strong>: <span class="math inline">\(ln(l(x))=ln(\frac{f(x|w_1)}{f(x|w_2)})=ln(f(x|w_1))-ln(f(x|w_2))\)</span></p></li>
+<li><p><strong>Log likelihood ratio</strong>: <span class="math inline">\(\ln(l(x))=\ln(\frac{f(x|w_1)}{f(x|w_2)})=\ln(f(x|w_1))-\ln(f(x|w_2))\)</span></p></li>
 <li><p><strong>Ratio of a priori probabilities</strong>: <span class="math inline">\(T=\frac{P(w_2)}{P(w_1)}\)</span></p></li>
-<li><p><strong>Log ratio of a priori probabilities</strong>: <span class="math inline">\(ln(T)=ln(\frac{P(w_2)}{P(w_1)})=ln(P(w_2))-ln(P(w_1))\)</span></p></li>
+<li><p><strong>Log ratio of a priori probabilities</strong>: <span class="math inline">\(\ln(T)=\ln(\frac{P(w_2)}{P(w_1)})=\ln(P(w_2))-\ln(P(w_1))\)</span></p></li>
 </ul>
 <p><span class="math display">\[\begin{array}{rcl}
-ln(l(x)) = ln(\frac{f(x|w_1)}{f(x|w_2)}) &gt; ln(\frac{P(w_2)}{P(w_1)}) = ln(T) &amp; \Rightarrow &amp; w_1 \\
-ln(l(x)) = ln(\frac{f(x|w_1)}{f(x|w_2)}) &lt; ln(\frac{P(w_2)}{P(w_1)}) = ln(T) &amp; \Rightarrow &amp; w_2 \\
+\ln(l(x)) = \ln(\frac{f(x|w_1)}{f(x|w_2)}) &gt; \ln(\frac{P(w_2)}{P(w_1)}) = \ln(T) &amp; \Rightarrow &amp; w_1 \\
+\ln(l(x)) = \ln(\frac{f(x|w_1)}{f(x|w_2)}) &lt; \ln(\frac{P(w_2)}{P(w_1)}) = \ln(T) &amp; \Rightarrow &amp; w_2 \\
 \end{array}\]</span></p>
 <h3 id="likelihood-as-gaussian-distribution"><span class="header-section-number">2.4.1</span> Likelihood as Gaussian distribution</h3>
 <p>Assume likelihood <span class="math inline">\(f(x|w_i)\)</span> are Gaussian distributions with mean <span class="math inline">\(\mu_i\)</span> and variance <span class="math inline">\(\sigma_i^2\)</span>. <span class="math display">\[f(x|w_i)=\frac{1}{\sqrt{2\pi\sigma_i^2}}\exp\left(-\frac{(x-\mu_i)^2}{2\sigma_i^2}\right)\]</span></p>
 <p><img src="./img/gaussian_distribution_likelihood.png" alt="image" width="226" /></p>
 <p>The log likelihood ratio: <span class="math display">\[\begin{array}{rcl}
-ln(l(x)) &amp; = &amp; ln\left(\frac{\frac{1}{\sqrt{2\pi\sigma_1^2}}\exp\left(-\frac{(x-\mu_1)^2}{2\sigma_1^2}\right)}{\frac{1}{\sqrt{2\pi\sigma_2^2}}\exp\left(-\frac{(x-\mu_2)^2}{2\sigma_2^2}\right)}\right) \\
-         &amp; = &amp; ln(\frac{\sigma_2}{\sigma_1})+\frac{(x-\mu_2)^2}{2\sigma_2^2}-\frac{(x-\mu_1)^2}{2\sigma_1^2}
+\ln(l(x)) &amp; = &amp; \ln\left(\frac{\frac{1}{\sqrt{2\pi\sigma_1^2}}\exp\left(-\frac{(x-\mu_1)^2}{2\sigma_1^2}\right)}{\frac{1}{\sqrt{2\pi\sigma_2^2}}\exp\left(-\frac{(x-\mu_2)^2}{2\sigma_2^2}\right)}\right) \\
+         &amp; = &amp; \ln(\frac{\sigma_2}{\sigma_1})+\frac{(x-\mu_2)^2}{2\sigma_2^2}-\frac{(x-\mu_1)^2}{2\sigma_1^2}
 \end{array}\]</span></p>
 <p>Case: <span class="math inline">\(\sigma_1=\sigma_2=\sigma\)</span> <span class="math display">\[\begin{array}{rcl}
-ln(l(x)) &amp; = &amp; \frac{2x(\mu_1-\mu_2)-(\mu_1^2-\mu_2^2)}{2\sigma^2}
+\ln(l(x)) &amp; = &amp; \frac{2x(\mu_1-\mu_2)-(\mu_1^2-\mu_2^2)}{2\sigma^2}
 \end{array}\]</span></p>
 <p><span class="math display">\[\begin{array}{rcl}
-x(\mu_1-\mu_2) - \frac{\mu_1^2-\mu_2^2}{2} &gt; \sigma^2 ln(\frac{P(w_2)}{P(w_1)}) &amp; \Rightarrow &amp; w_1 \\
-x(\mu_1-\mu_2) - \frac{\mu_1^2-\mu_2^2}{2} &lt; \sigma^2 ln(\frac{P(w_2)}{P(w_1)}) &amp; \Rightarrow &amp; w_2 \\
+x(\mu_1-\mu_2) - \frac{\mu_1^2-\mu_2^2}{2} &gt; \sigma^2 \ln(\frac{P(w_2)}{P(w_1)}) &amp; \Rightarrow &amp; w_1 \\
+x(\mu_1-\mu_2) - \frac{\mu_1^2-\mu_2^2}{2} &lt; \sigma^2 \ln(\frac{P(w_2)}{P(w_1)}) &amp; \Rightarrow &amp; w_2 \\
 \end{array}\]</span></p>
 <p>If <span class="math inline">\(P(w_1)=P(w_2)\)</span> <span class="math display">\[x = \frac{\mu_1+\mu_2}{2}\]</span></p>
 <p><img src="./img/gaussian_linear_classifier.png" alt="image" width="302" /></p>
 <p>Case: <span class="math inline">\(\sigma_1\neq\sigma_2\)</span></p>
 <p><img src="./img/guassian_quadratic_classifier.png" alt="image" width="302" /></p>
+<p><a href="./document.html"><strong>Back to Top</strong></a></p>
+<hr />
+<h1 id="parametric-non-parametric-density-estimation"><span class="header-section-number">3</span> Parametric &amp; Non-Parametric Density Estimation</h1>
+<p>Learning &amp; Classification</p>
+<ul>
+<li><p>Supervised:</p>
+<ul>
+<li><p>Bayes Density:</p>
+<ul>
+<li><p>Parametric: assumes a particular form of a PDF (e.g. Gaussian) is known <span class="math inline">\(\rightarrow\)</span> determine the parameters (e.g. mean and variance)</p>
+<ul>
+<li><p>Maximum Likelihood (<span class="math inline">\(f(x|w_i)\)</span>) Estimation (MLE)</p></li>
+<li><p>Maximum A Posteriori (Bayesian <span class="math inline">\(p(w_i|x)\)</span>) Estimation (MAPE)</p></li>
+</ul></li>
+<li><p>Non-Parametric: no assumption about the density</p>
+<ul>
+<li><p>Parzen Windows</p></li>
+<li><p>Kernel Density Estimation</p></li>
+<li><p>K-Nearest Neighbor Rule</p></li>
+</ul></li>
+</ul></li>
+<li><p>Discriminant Analysis:</p>
+<ul>
+<li><p>Linear</p></li>
+<li><p>Non-Linear</p></li>
+</ul></li>
+</ul></li>
+<li><p>Unsupervised:</p>
+<ul>
+<li><p>Clustering</p></li>
+</ul></li>
+</ul>
+<h2 id="ml-estimation-mle"><span class="header-section-number">3.1</span> ML Estimation (MLE)</h2>
+<p>Steps:</p>
+<ul>
+<li><p>Assume <span class="math inline">\(P(x|w)\)</span> has a known parametric form uniquely determined by the parameter vector <span class="math inline">\(\theta\)</span></p></li>
+<li><p>The parameters are assumed to be fixed (i.e. non random) but unknown</p></li>
+<li><p>Suppose we have a dataset <span class="math inline">\(D\)</span> with the samples in <span class="math inline">\(D\)</span> having been drawn <strong>independently</strong> according to the probability law <span class="math inline">\(P(x|w)\)</span></p></li>
+<li><p>The MLE is the value of <span class="math inline">\(\theta\)</span> that best explains the data and once we know this value, we know <span class="math inline">\(P(x|w)\)</span> <span class="math display">\[\hat{\theta}=\operatorname*{arg\,max}_\theta\{P(D|\theta)\}=\operatorname*{arg\,max}_\theta\{\prod_{k=1}^{N}{P(x_k|\theta)}\}=\operatorname*{arg\,max}_\theta\{\sum_{k=1}^{N}{\log(P(x_k|\theta))}\}\]</span> Choose the value of <span class="math inline">\(\theta\)</span> that is the most likely to give rise to the data we observe.</p></li>
+</ul>
+<p>Method:</p>
+<ul>
+<li><p>Assume <span class="math inline">\(\theta=[\theta_1,\theta_2,\dots,\theta_p]^T\)</span></p></li>
+<li><p>Assume gradient operator <span class="math inline">\(\nabla_\theta=[\frac{\partial}{\partial\theta_1},\frac{\partial}{\partial\theta_2},\dots,\frac{\partial}{\partial\theta_p}]^T\)</span></p></li>
+<li><p>Assume the log-likelihood of the objective function <span class="math inline">\(l(\theta)=\sum_{k=1}^{N}{\log(P(x_k|\theta))}\)</span></p></li>
+<li><p>Therefore: <span class="math inline">\(\nabla_\theta l(\theta)=\sum_{k=1}^{N}{\nabla_\theta \log(P(x_k|\theta))}=0\)</span></p></li>
+</ul>
+<h3 id="e.g.-univariate-gaussian"><span class="header-section-number">3.1.1</span> E.g. Univariate Gaussian</h3>
+<p><span class="math display">\[P(x|\mu,\sigma^2)=\frac{1}{\sqrt{2\pi\sigma^2}}\exp(-\frac{(x-\mu)^2}{2\sigma^2})\]</span></p>
+<p><span class="math display">\[\theta=\left[\begin{array}{c}
+\theta_1=\mu \\
+\theta_2=\sigma^2 \\
+\end{array}\right]\]</span></p>
+<p><span class="math display">\[\begin{array}{rcl}
+\log(P(x_k|\theta)) &amp; = &amp; \log(\frac{1}{\sqrt{2\pi\theta_2}}\exp(-\frac{(x_k-\theta_1)^2}{2\theta_2})) \\
+                   &amp; = &amp; -\frac{1}{2}\log(2\pi\theta_2)-\frac{(x_k-\theta_1)^2}{2\theta_2} \\
+\end{array}\]</span></p>
+<p><span class="math display">\[\begin{array}{rcl}
+
+\nabla_\theta \log(P(x_k|\theta)) &amp; = &amp; \left[
+\begin{array}{c}
+\frac{x_k-\theta_1}{\theta_2} \\
+-\frac{1}{2\theta_2}+\frac{(x_k-\theta_1)^2}{2\theta_2} \\
+\end{array}\right] \\
+
+\Rightarrow \left\{
+\begin{array}{rcl}
+\sum_{k=1}^{n}{\frac{1}{\theta_2}(x_k-\theta_1)} &amp; = &amp; 0 \\
+-\sum_{k=1}^{n}{\frac{1}{\theta_2}}+\sum_{k=1}^{n}{\frac{(x_k-\theta_1)^2}{\theta_2^2}} &amp; = &amp; 0 \\
+\end{array}\right. &amp; \Rightarrow &amp; \left\{
+\begin{array}{rcl}
+\hat{\mu} &amp; = &amp; \frac{1}{n}\sum_{k=1}^{n}{x_k} \\
+\hat{\sigma}^2 &amp; = &amp; \frac{1}{n}\sum_{k=1}^{n}{(x_k-\hat{\mu})^2} \\
+\end{array}\right. \\
+
+\end{array}\]</span></p>
+<h3 id="e.g.-multivariate-gaussian"><span class="header-section-number">3.1.2</span> E.g. Multivariate Gaussian</h3>
+<p><span class="math display">\[P(x|\mu,\Sigma)=\frac{1}{(2\pi)^{d/2}|\Sigma|^{1/2}}\exp(-\frac{1}{2}(x-\mu)^T\Sigma^{-1}(x-\mu))\]</span></p>
+<p>Case: only the mean <span class="math inline">\(\mu\)</span> is unknown</p>
+<p><span class="math display">\[\log(P(x_k|\mu)) = -\frac{1}{2}\log((2\pi)^{d}|\Sigma|)-\frac{1}{2}(x_k-\mu)^T\Sigma^{-1}(x_k-\mu)\]</span></p>
+<p><span class="math display">\[\begin{array}{rcl}
+\nabla_\theta \log(P(x_k|\mu)) &amp; = &amp; \Sigma^{-1}(x_k-\mu) \\
+\Rightarrow \sum_{k=1}^{n}{\Sigma^{-1}(x_k-\mu)} = 0 &amp; \Rightarrow &amp; \hat{\mu} = \frac{1}{n}\sum_{k=1}^{n}{x_k}
+\end{array}\]</span></p>
+<p>Case: Neither the mean <span class="math inline">\(\mu\)</span> nor the covariance matrix <span class="math inline">\(\Sigma\)</span> are known</p>
+<p><span class="math display">\[\theta=\left[\begin{array}{rcl}
+\theta_1 &amp; = &amp; \mu \\
+\theta_2 &amp; = &amp; \Sigma \\
+\end{array}\right]\]</span></p>
+<p>Convert the covariance matrix <span class="math inline">\(\Sigma\)</span></p>
+<p><span class="math display">\[\begin{array}{rcl}
+P(D|\Sigma) &amp; = &amp; \prod_{k=1}^{n}{P(x_k|\Sigma)} \\
+            &amp; = &amp; \prod_{k=1}^{n}{\frac{1}{\sqrt{(2\pi)^d|\Sigma|}}\exp(-\frac{1}{2}(x_k-\mu)^T\Sigma^{-1}(x_k-\mu))} \\
+            &amp; = &amp; \frac{1}{((2\pi)^d|\Sigma|)^{n/2}}\exp(-\frac{1}{2}\sum_{n}^{k=1}{(x_k-\mu)^T\Sigma^{-1}(x_k-\mu)}) \\
+\end{array}\]</span></p>
+<p>The property of matrix trace</p>
+<ul>
+<li><p>scalar <span class="math inline">\(b^TBb=trace(b^TBb)=trace(Bbb^T)\)</span></p></li>
+<li><p><span class="math inline">\(trace(A+B)=trace(A)+trace(B)\)</span></p></li>
+<li><p><span class="math inline">\(trace(C(A+B))=trace(CA)+trace(CB)\)</span></p></li>
+<li><p><span class="math inline">\(trace(A)\)</span> is the sum of <span class="math inline">\(A\)</span>’s eigenvalues</p></li>
+</ul>
+<p><span class="math display">\[\begin{array}{rcl}
+\sum_{n}^{k=1}{(x_k-\mu)^T\Sigma^{-1}(x_k-\mu)} &amp; = &amp; \sum_{n}^{k=1}{trace((x_k-\mu)^T\Sigma^{-1}(x_k-\mu))} \\
+                                                &amp; = &amp; \sum_{n}^{k=1}{trace(\Sigma^{-1}(x_k-\mu)(x_k-\mu)^T)} \\
+                                                &amp; = &amp; trace(\Sigma^{-1}\sum_{n}^{k=1}{(x_k-\mu)(x_k-\mu)^T})\\                                              
+\end{array}\]</span></p>
+<p>Assume <span class="math display">\[A=\frac{1}{n}\sum_{k=1}^{n}(x_k-\mu)(x_k-\mu)^T\]</span> and <span class="math inline">\(A\)</span> is fixed.</p>
+<p>Then <span class="math display">\[\sum_{n}^{k=1}{(x_k-\mu)^T\Sigma^{-1}(x_k-\mu)} = n~trace(\Sigma^{-1}A)\]</span></p>
+<p>Therefore <span class="math display">\[P(D|\Sigma) = \frac{1}{((2\pi)^d|\Sigma|)^{n/2}}\exp(-\frac{n}{2}trace(\Sigma^{-1}A))\]</span></p>
+<p>Assume <span class="math display">\[B=\Sigma^{-1}A\]</span> and B’s eigenvalues are <span class="math inline">\(\lambda_1,\lambda_2,\dots,\lambda_d\)</span></p>
+<p>The property of matrix determinant</p>
+<ul>
+<li><p><span class="math inline">\(det(AB)=det(A)det(B)\)</span></p></li>
+<li><p><span class="math inline">\(det(A^{-1})=det(A)^{-1}\)</span></p></li>
+<li><p><span class="math inline">\(det(A)\)</span> is the product of <span class="math inline">\(A\)</span>’s eigenvalues</p></li>
+</ul>
+<p>Therefore <span class="math display">\[\begin{array}{rcl}
+P(D|\Sigma) &amp; = &amp; \frac{1}{((2\pi)^d|\Sigma|)^{n/2}}\exp(-\frac{n}{2}trace(\Sigma^{-1}A)) \\
+            &amp; = &amp; \frac{1}{(2\pi)^{dn/2}}|\Sigma|^{-n/2}\exp(-\frac{n}{2}trace(B)) \\
+            &amp; = &amp; \frac{1}{(2\pi)^{dn/2}}(\frac{|B|}{|A|})^{n/2}\exp(-\frac{n}{2}trace(B)) \\
+            &amp; = &amp; \frac{1}{(2\pi)^{dn/2}}|A|^{-n/2}(\prod_{i=1}^{d}{\lambda_i})^{n/2}\exp(-\frac{n}{2}\sum_{i=1}^{d}{\lambda_i}) \\
+\end{array}\]</span></p>
+<p><span class="math display">\[\log(P(D|\Sigma))=-\frac{dn}{2}\log(2\pi)-\frac{n}{2}\log(|A|)+\frac{n}{2}\sum_{i=1}^{d}{\log(\lambda_i)}-\frac{n}{2}\sum_{i=1}^{d}{\lambda_i}\]</span></p>
+<p><span class="math display">\[\frac{\partial(\log(P(x|\Sigma)))}{\partial\lambda_i}=\frac{n}{2\lambda_i}-\frac{n}{2}=0 \Rightarrow \lambda_i=1\]</span></p>
+<p>Therefore <span class="math inline">\(B \sim I\)</span>, and <span class="math inline">\(\Sigma^{-1}A=I \Rightarrow \hat{\Sigma}=A=\frac{1}{n}\sum_{k=1}^{n}(x_k-\mu)(x_k-\mu)^T\)</span>.</p>
+<h2 id="bayesian-estimation-be"><span class="header-section-number">3.2</span> Bayesian Estimation (BE)</h2>
+<p>Steps:</p>
+<ul>
+<li><p>The parameters are assumed to be random variables with some known priori distribution.</p></li>
+<li><p>Bayesian approach aims at estimating the posterior density <span class="math inline">\(P(\theta|D)\)</span></p></li>
+<li><p>The MAPE(Maximum A Posteriori Estimate) of <span class="math inline">\(\theta\)</span> is the value of <span class="math inline">\(\theta\)</span> that maximizes the posterior density <span class="math inline">\(P(\theta|D)\)</span>.</p></li>
+</ul>
+<p>Method:</p>
+<ul>
+<li><p>Estimate <span class="math inline">\(P(x|D)\)</span> from sample data, and assume it has a known parametric form. So <span class="math inline">\(P(x|\theta)\)</span> is completely known, but <span class="math inline">\(\theta\)</span> is random variable and has its own PDF.</p></li>
+<li><p><span class="math inline">\(P(x|D)=\int{P(x,\theta|D)d\theta}=\int{P(x|\theta)P(\theta|D)d\theta}\)</span></p></li>
+<li><p>Posterior <span class="math inline">\(P(\theta|D)=\frac{P(D|\theta)P(\theta)}{P(D)}\)</span>, where <span class="math inline">\(P(D|\theta)=\prod_{k=1}^{n}{P(x_k|\theta)}\)</span></p></li>
+<li><p>Since <span class="math inline">\(P(D)\)</span> is constant, therefore <span class="math inline">\(\hat{\theta}=\operatorname*{arg\,max}_\theta\{P(D|\theta)P(\theta)\}\)</span></p></li>
+</ul>
+<h3 id="e.g.-univariate-gaussian-1"><span class="header-section-number">3.2.1</span> E.g. Univariate Gaussian</h3>
+<p>...</p>
+<h3 id="e.g.-multivariate-gaussian-1"><span class="header-section-number">3.2.2</span> E.g. Multivariate Gaussian</h3>
+<p>...</p>
+<p><a href="./document.html"><strong>Back to Top</strong></a></p>
+<hr />
+<h1 id="principle-component-analysis-pca"><span class="header-section-number">4</span> Principle Component Analysis (PCA)</h1>
 </body>
 </html>
