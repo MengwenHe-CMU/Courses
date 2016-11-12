@@ -373,6 +373,29 @@ Method:
 
 \pandochline
 \section{Principle Component Analysis (PCA)}
+Purpose: get projection vectors $\omega$ that maximize the variance of the projected data.
+\begin{equation}
+\max_\omega(Var(\omega^Tx)),\text{~where~}||\omega||=1
+\end{equation}
 
+Derivation: Assume the objective function
+\begin{equation}
+\begin{array}{rcl}
+J(\omega) & = & Var(\omega^Tx) \\
+		  & = & E(\omega^T(x-\mu)(x-\mu)^T\omega) \\
+		  & = & \omega^TE((x-\mu)(x-\mu)^T)\omega \\
+		  & = & \omega^T\Sigma\omega~~~~(\text{where~} ||\omega||=1)
+\end{array}
+\end{equation}
+Then use Lagrangian optimization method to get the $\omega^*$
+\begin{equation}
+\begin{array}{rcl}
+L(\omega,\lambda) & = & \omega^T\Sigma\omega - \lambda(\omega^T\omega-1) \\
+\frac{\partial L(\omega,\lambda)}{\partial\omega} & = & 2\Sigma\omega-2\lambda\omega=0 \\
+& \Rightarrow & \Sigma\omega=\lambda\omega
+\end{array}
+\end{equation}
 
+To maximize $J(\omega)$, we need to maximize $\omega^T\Sigma\omega=\lambda \rightarrow \lambda_{max}$
+ 
 \end{document}

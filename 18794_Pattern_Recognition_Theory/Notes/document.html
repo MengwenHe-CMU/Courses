@@ -267,5 +267,17 @@ P(D|\Sigma) &amp; = &amp; \frac{1}{((2\pi)^d|\Sigma|)^{n/2}}\exp(-\frac{n}{2}tra
 <p><a href="./document.html"><strong>Back to Top</strong></a></p>
 <hr />
 <h1 id="principle-component-analysis-pca"><span class="header-section-number">4</span> Principle Component Analysis (PCA)</h1>
+<p>Purpose: get projection vectors <span class="math inline">\(\omega\)</span> that maximize the variance of the projected data. <span class="math display">\[\max_\omega(Var(\omega^Tx)),\text{~where~}||\omega||=1\]</span></p>
+<p>Derivation: Assume the objective function <span class="math display">\[\begin{array}{rcl}
+J(\omega) &amp; = &amp; Var(\omega^Tx) \\
+          &amp; = &amp; E(\omega^T(x-\mu)(x-\mu)^T\omega) \\
+          &amp; = &amp; \omega^TE((x-\mu)(x-\mu)^T)\omega \\
+          &amp; = &amp; \omega^T\Sigma\omega~~~~(\text{where~} ||\omega||=1)
+\end{array}\]</span> Then use Lagrangian optimization method to get the <span class="math inline">\(\omega^*\)</span> <span class="math display">\[\begin{array}{rcl}
+L(\omega,\lambda) &amp; = &amp; \omega^T\Sigma\omega - \lambda(\omega^T\omega-1) \\
+\frac{\partial L(\omega,\lambda)}{\partial\omega} &amp; = &amp; 2\Sigma\omega-2\lambda\omega=0 \\
+&amp; \Rightarrow &amp; \Sigma\omega=\lambda\omega
+\end{array}\]</span></p>
+<p>To maximize <span class="math inline">\(J(\omega)\)</span>, we need to maximize <span class="math inline">\(\omega^T\Sigma\omega=\lambda \rightarrow \lambda_{max}\)</span></p>
 </body>
 </html>
