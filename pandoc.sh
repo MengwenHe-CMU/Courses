@@ -6,5 +6,9 @@ do
   TEXBASENAME=$(basename $TEXFILE)
   NAME="${TEXBASENAME%.*}"
   HTMLNAME=$TEXDIR/$NAME.html
-  pandoc $TEXFILE -f latex -t html5 -H header -N --toc --mathjax -o $HTMLNAME
+  if [ $NAME == "index" ]; then
+    pandoc $TEXFILE -f latex -t html5 -s -o $HTMLNAME
+  elif [ $NAME == "document" ]; then
+    pandoc $TEXFILE -f latex -t html5 -H header -N --toc --mathjax -o $HTMLNAME
+  fi
 done
